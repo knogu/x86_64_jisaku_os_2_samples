@@ -32,6 +32,8 @@ void efi_main(void *ImageHandle, struct EFI_SYSTEM_TABLE *SystemTable)
 
 	/* ConfigurationTableの内容を表示して停止する */
 	dump_efi_configuration_table();
+	init_memmap();
+	dump_memmap();
 	while (TRUE);
 
 	/* ボリュームのルートディレクトリを開く */
