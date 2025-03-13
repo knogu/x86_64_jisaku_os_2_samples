@@ -14,6 +14,7 @@
 struct platform_info {
 	struct fb fb;
 	void *rsdp;
+	struct EFI_MEMORY_DESCRIPTOR *mem;
 } pi;
 
 void load_config(
@@ -28,6 +29,8 @@ unsigned char load_fs(
 	unsigned long long fs_start);
 void put_n_bytes(unsigned char *addr, unsigned int num);
 void put_param(unsigned short *name, unsigned long long val);
+
+extern unsigned char mem_desc[MEM_DESC_SIZE];
 
 void efi_main(void *ImageHandle, struct EFI_SYSTEM_TABLE *SystemTable)
 {
@@ -58,6 +61,8 @@ void efi_main(void *ImageHandle, struct EFI_SYSTEM_TABLE *SystemTable)
 	pi.fb.hr = fb.hr;
 	pi.fb.vr = fb.vr;
 	pi.rsdp = find_efi_acpi_table();
+	init_memmap();
+	pi.mem = (struct EFI_MEMORY_DESCRIPTOR *)mem_desc;
 	unsigned long long kernel_arg2 = (unsigned long long)&pi;
 	put_param(L"kernel_arg2", kernel_arg2);
 	unsigned long long kernel_arg3;

@@ -2,8 +2,6 @@
 #include <common.h>
 #include <mem.h>
 
-#define MEM_DESC_SIZE	4800
-
 unsigned char mem_desc[MEM_DESC_SIZE];
 unsigned long long mem_desc_num;
 unsigned long long mem_desc_unit_size;
