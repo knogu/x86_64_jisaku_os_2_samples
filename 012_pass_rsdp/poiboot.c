@@ -15,10 +15,12 @@ struct platform_info {
 	struct fb fb;
 	void *rsdp;
 	void *mem;
-	int mem_desc_num;
+	unsigned long long mem_desc_num;
+	unsigned long long mem_desc_unit_size;
 } pi;
 
-extern int mem_desc_num;
+extern long long mem_desc_num;
+extern long long mem_desc_unit_size;
 
 void load_config(
 	struct EFI_FILE_PROTOCOL *root, unsigned short *conf_file_name,
@@ -67,6 +69,7 @@ void efi_main(void *ImageHandle, struct EFI_SYSTEM_TABLE *SystemTable)
 	init_memmap();
 	pi.mem = (void *)mem_desc;
 	pi.mem_desc_num = mem_desc_num;
+	pi.mem_desc_unit_size = mem_desc_unit_size;
 	unsigned long long kernel_arg2 = (unsigned long long)&pi;
 	put_param(L"kernel_arg2", kernel_arg2);
 	unsigned long long kernel_arg3;
