@@ -3,14 +3,9 @@
 #include <efi.h>
 #include <fbcon.h>
 
-unsigned char mem_desc[MEM_DESC_SIZE];
-unsigned long long mem_desc_num;
-unsigned long long mem_desc_unit_size;
-unsigned long long map_key;
-
-void dump_memmap(void* ptr)
+void dump_memmap(void* ptr, unsigned long long mem_desc_num, unsigned long long mem_desc_unit_size)
 {
-    putc('d');
+    putc('D');
     puth(mem_desc_num, 16);
 	struct EFI_MEMORY_DESCRIPTOR *p = (struct EFI_MEMORY_DESCRIPTOR *)ptr;
 	unsigned int i;
@@ -34,10 +29,10 @@ void dump_memmap(void* ptr)
 	}
 }
 
-struct EFI_MEMORY_DESCRIPTOR *get_allocatable_area(unsigned long long size)
+struct EFI_MEMORY_DESCRIPTOR *get_allocatable_area(void* ptr, unsigned long long mem_desc_num, unsigned long long mem_desc_unit_size, unsigned long long size)
 {
 	struct EFI_MEMORY_DESCRIPTOR *p =
-		(struct EFI_MEMORY_DESCRIPTOR *)mem_desc;
+		(struct EFI_MEMORY_DESCRIPTOR *)ptr;
 	unsigned long long i;
 
 	for (i = 0; i < mem_desc_num; i++) {

@@ -13,6 +13,8 @@ struct __attribute__((packed)) platform_info {
 	struct framebuffer fb;
 	void *rsdp;
 	void *mem;
+	unsigned long long mem_desc_num;
+	unsigned long long mem_desc_unit_size;
 };
 
 void start_kernel(void *_t __attribute__((unused)), struct platform_info *pi,
@@ -37,7 +39,7 @@ void start_kernel(void *_t __attribute__((unused)), struct platform_info *pi,
 	putc(*s++);	/* 'T' */
 	putc(*s++);	/* 'R' */
 	putc(*s);	/* ' ' */
-	dump_memmap(pi->mem);
+	dump_memmap(pi->mem, pi->mem_desc_num, pi->mem_desc_unit_size);
 	while (1);
 
 	/* CPU周りの初期化 */

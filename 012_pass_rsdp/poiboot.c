@@ -70,6 +70,7 @@ void efi_main(void *ImageHandle, struct EFI_SYSTEM_TABLE *SystemTable)
 	pi.mem = (void *)mem_desc;
 	pi.mem_desc_num = mem_desc_num;
 	pi.mem_desc_unit_size = mem_desc_unit_size;
+	
 	unsigned long long kernel_arg2 = (unsigned long long)&pi;
 	put_param(L"kernel_arg2", kernel_arg2);
 	unsigned long long kernel_arg3;
