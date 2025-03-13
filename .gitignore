@@ -1,11 +1,8 @@
 *~
 *.o
 *.a
-*.bin
-*.efi
 *.bgra
 *.img
-*.bin
 *.map
 GPATH
 GRTAGS
