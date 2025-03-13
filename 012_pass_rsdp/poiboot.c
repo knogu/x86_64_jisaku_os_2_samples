@@ -14,8 +14,11 @@
 struct platform_info {
 	struct fb fb;
 	void *rsdp;
-	struct EFI_MEMORY_DESCRIPTOR *mem;
+	void *mem;
+	int mem_desc_num;
 } pi;
+
+extern int mem_desc_num;
 
 void load_config(
 	struct EFI_FILE_PROTOCOL *root, unsigned short *conf_file_name,
@@ -62,7 +65,8 @@ void efi_main(void *ImageHandle, struct EFI_SYSTEM_TABLE *SystemTable)
 	pi.fb.vr = fb.vr;
 	pi.rsdp = find_efi_acpi_table();
 	init_memmap();
-	pi.mem = (struct EFI_MEMORY_DESCRIPTOR *)mem_desc;
+	pi.mem = (void *)mem_desc;
+	pi.mem_desc_num = mem_desc_num;
 	unsigned long long kernel_arg2 = (unsigned long long)&pi;
 	put_param(L"kernel_arg2", kernel_arg2);
 	unsigned long long kernel_arg3;

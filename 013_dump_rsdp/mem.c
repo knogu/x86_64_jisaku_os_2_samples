@@ -10,6 +10,8 @@ unsigned long long map_key;
 
 void dump_memmap(void* ptr)
 {
+    putc('d');
+    puth(mem_desc_num, 16);
 	struct EFI_MEMORY_DESCRIPTOR *p = (struct EFI_MEMORY_DESCRIPTOR *)ptr;
 	unsigned int i;
 
