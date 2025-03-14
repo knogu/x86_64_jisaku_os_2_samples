@@ -11,18 +11,22 @@ void dump_memmap(void* ptr, unsigned long long mem_desc_num, unsigned long long 
 	unsigned int i;
 
 	for (i = 0; i < mem_desc_num; i++) {
-		puth((unsigned long long)p, 16);
-		putc(' ');
-		puth(p->Type, 2);
-		putc(' ');
-		puth(p->PhysicalStart, 16);
-		putc(' ');
-		puth(p->VirtualStart, 16);
-		putc(' ');
-		puth(p->NumberOfPages, 16);
-		putc(' ');
-		puth(p->Attribute, 16);
-		puts("\r\n");
+		if (p->Type == EfiConventionalMemory) {
+			puth(p->NumberOfPages, 16);
+			putc(' ');
+		}
+		// puth((unsigned long long)p, 16);
+		// putc(' ');
+		// puth(p->Type, 2);
+		// putc(' ');
+		// puth(p->PhysicalStart, 16);
+		// putc(' ');
+		// puth(p->VirtualStart, 16);
+		// putc(' ');
+		// puth(p->NumberOfPages, 16);
+		// putc(' ');
+		// puth(p->Attribute, 16);
+		// puts("\r\n");
 
 		p = (struct EFI_MEMORY_DESCRIPTOR *)(
 			(unsigned char *)p + mem_desc_unit_size);
